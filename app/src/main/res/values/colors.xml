@@ -17,5 +17,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="edittext_color_street">#000000</color>
     <color name="popup_background">#FFFFFFFF</color>
+    <color name="dark_button_text">#FFFFFF</color>
+    <color name="light_compute_button_background">#FFFFFF</color>
+    <color name="dark_compute_button_background">#262655</color>
+
 
 </resources>

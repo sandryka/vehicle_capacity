@@ -1,6 +1,5 @@
 package com.example.vehiclecapacityanalysis;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -29,9 +28,6 @@ public class MainVehicle extends AppCompatActivity {
     private boolean isStreetSelected = true; // Set "Street" as the initial mode
     private VehicleCalculator vehicleCalculator;
     private PopupWindow popupWindow;
-
-    public MainVehicle() {
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,8 +87,8 @@ public class MainVehicle extends AppCompatActivity {
     private void updateUIBasedOnTheme() {
         setThemeColors();
         updateLogoVisibility(); // Call the updateLogoVisibility method here
+        updateComputeButtonAppearance(); // Update the compute button appearance
     }
-
 
     private void updateLogoVisibility() {
         ImageView themeIcon1 = findViewById(R.id.theme_icon1);
@@ -107,7 +103,6 @@ public class MainVehicle extends AppCompatActivity {
         }
     }
 
-
     private void setThemeColors() {
         int backgroundColor = isStreetSelected ? R.color.light_background : R.color.dark_background;
         int textColor = isStreetSelected ? R.color.text_color_dark : R.color.text_color_light;
@@ -115,12 +110,6 @@ public class MainVehicle extends AppCompatActivity {
         mainLayout.setBackgroundColor(ContextCompat.getColor(this, backgroundColor));
         titleText.setTextColor(ContextCompat.getColor(this, textColor));
         subtitleText.setTextColor(ContextCompat.getColor(this, textColor));
-
-        int buttonBackground = isStreetSelected ? R.drawable.light_compute_button_background : R.drawable.dark_compute_button_background;
-        int buttonText = isStreetSelected ? R.color.text_color_dark : R.color.text_color_light;
-
-        computeButton.setBackground(ContextCompat.getDrawable(this, buttonBackground));
-        computeButton.setTextColor(ContextCompat.getColor(this, buttonText));
 
         int editTextColor = isStreetSelected ? R.color.edittext_color_street : R.color.edittext_color_uam;
         int editHintColor = isStreetSelected ? R.color.edittext_color_street : R.color.edittext_color_uam;
@@ -141,6 +130,24 @@ public class MainVehicle extends AppCompatActivity {
         }
     }
 
+    private void updateComputeButtonAppearance() {
+        int buttonBackground;
+        int buttonText;
+
+        if (isStreetSelected) {
+            buttonBackground = R.drawable.light_compute_button_background;
+            buttonText = ContextCompat.getColor(this, R.color.text_color_dark); // Dark text color
+        } else {
+            buttonBackground = R.drawable.dark_compute_button_background;
+            buttonText = ContextCompat.getColor(this, R.color.text_color_light); // Light text color
+        }
+
+        computeButton.setBackgroundResource(buttonBackground);
+        computeButton.setTextColor(buttonText);
+    }
+
+
+
     private void showBestVehicles(List<Vehicle> bestVehicles) {
         StringBuilder bestVehiclesText = new StringBuilder();
         bestVehiclesText.append("Best Vehicles:\n");
@@ -158,5 +165,4 @@ public class MainVehicle extends AppCompatActivity {
             popupWindow.showAtLocation(mainLayout, Gravity.BOTTOM, 0, 0);
         }
     }
-
 }
